@@ -109,13 +109,11 @@ var app = new Vue({
         },
         clear: function() {
             localStorage.removeItem('PFCData')
-        },
-        loadConfig: function() {
-            this.ratio = [...Array(11).keys()].map(i => (i+5)/10).concat([2, 3, 4, 5])
         }
     },
     created: function() {
         this.load()
+        this.ratio = [...Array(11).keys()].map(i => (i+5)/10).concat([2, 3, 4, 5])
     },
     beforeDestroyd: function() {
         this.store()
