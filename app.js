@@ -66,6 +66,7 @@ var app = new Vue({
         },
         clearRecord: function() {
             this.record = []
+            this.store()
         },
         addMenu: function() {
             if (!this.menuSetting) return
