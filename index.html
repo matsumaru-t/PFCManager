@@ -2,13 +2,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PFCManager</title>
+    <title>PFC Manager</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datalist-polyfill/1.24.4/datalist-polyfill.min.js" integrity="sha512-njgkJe8kuqyz2AauUKsvQ3fhqbLsshNovMTWXLmy7x+lfrHdF8TxDlLQofXG9EBYirKYWmNJlGs0qA7340U6ug==" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 </head>
 <body>
     <div id="app" class="container mt-3">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light px-3">
+            <a class="navbar-brand" href="#">PFC Manager</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        aaa
+                    </li>
+                </ul>
+            </div>
+        </nav>
         <h4 class="mt-3">目標</h4>
         <div class="input-group">
             <span class="input-group-text">P</span>
@@ -33,12 +46,12 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th class="col-3">名前</th>
-                    <th class="col-1">倍率</th>
-                    <th class="col-1">P</th>
-                    <th class="col-1">F</th>
-                    <th class="col-1">C</th>
-                    <th class="col-1"></th>
+                    <th class="col-4 align-middle text-center">名前</th>
+                    <th class="col-1 align-middle text-center">倍率</th>
+                    <th class="col-1 align-middle text-center">P</th>
+                    <th class="col-1 align-middle text-center">F</th>
+                    <th class="col-1 align-middle text-center">C</th>
+                    <th class="col-1 align-middle text-center"><button class="btn btn-outline-secondary btn-sm" @click="clearRecord">clear all</button></th>
                 </tr>
             </thead>
             <thead>
@@ -63,7 +76,7 @@
                     <td><input type="text" v-model="P" class="form-control"></td>
                     <td><input type="text" v-model="F" class="form-control"></td>
                     <td><input type="text" v-model="C" class="form-control"></td>
-                    <td><button @click="addRecord" class="btn btn-outline-primary">+</button></td>
+                    <td class="align-middle text-center"><button @click="addRecord" class="btn btn-outline-primary btn-sm">+</button></td>
                 </tr>
             </thead>
             <tr v-for="(food, index) in reversedRecord">                
@@ -72,7 +85,7 @@
                 <td class="align-middle">{{ food.P.toFixed(1) }}</td>
                 <td class="align-middle">{{ food.F.toFixed(1) }}</td>
                 <td class="align-middle">{{ food.C.toFixed(1) }}</td>
-                <td class="align-middle"><button @click="removeRecord(index)" class="btn btn-outline-danger">×</button></td>
+                <td class="align-middle text-center"><button @click="removeRecord(index)" class="btn btn-outline-danger btn-sm">×</button></td>
             </tr>
         </table>
 

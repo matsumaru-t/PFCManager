@@ -64,6 +64,9 @@ var app = new Vue({
             this.$delete(this.record, index)
             this.store()
         },
+        clearRecord: function() {
+            this.record = []
+        },
         addMenu: function() {
             if (!this.menuSetting) return
             this.menu.push(this.menuSetting)
