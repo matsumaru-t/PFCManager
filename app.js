@@ -178,7 +178,16 @@ var app = new Vue({
             link.download = 'record.json'
             link.click()
         },
-
+        dragRecord(event, dragIndex){
+            event.dataTransfer.effectAllowed = 'move'
+            event.dataTransfer.dropEffect = 'move'
+            event.dataTransfer.setData('drag-index', dragIndex)
+        },
+        dropRecord(event, dropIndex){
+            const dragIndex = event.dataTransfer.getData('drag-index')
+            const deleteRecord = this.record.splice(this.record.length-1-dragIndex, 1)
+            this.record.splice(this.record.length-dropIndex, 0, deleteRecord[0])
+        }
     },
     created: function() {
         this.load()
