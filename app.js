@@ -59,6 +59,7 @@ var app = new Vue({
             this.P = 0
             this.F = 0
             this.C = 0
+            this.r = 1
             this.store()
         },
         removeRecord: function(index) {
