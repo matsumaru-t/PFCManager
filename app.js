@@ -5,7 +5,7 @@ var app = new Vue({
         menu: [],
         record: [],
         r: 1.0,
-        ratio: [...Array(11).keys()].map(i => (i+5)/10),
+        ratio: [...Array(11).keys()].map(i => (i+5)/10).concat([2, 3, 4, 5]),
         
         name: null,
         P: 0,
