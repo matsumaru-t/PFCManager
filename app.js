@@ -5,8 +5,6 @@ var app = new Vue({
         menu: [],
         record: [],
         r: 1.0,
-        ratio: [...Array(11).keys()].map(i => (i+5)/10).concat([2, 3, 4, 5]),
-        
         name: null,
         P: 0,
         F: 0,
@@ -18,6 +16,9 @@ var app = new Vue({
         menuSetting: {name: null, P: 0, F: 0, C: 0}
     },
     computed: {
+        ratio: function() {
+            return [...Array(11).keys()].map(i => (i+5)/10).concat([2, 3, 4, 5])
+        },
         sum: function() {
            return {
                P: this.record.reduce((s, cur) => s + cur.P, 0),
@@ -113,7 +114,6 @@ var app = new Vue({
     },
     created: function() {
         this.load()
-        this.ratio = [...Array(11).keys()].map(i => (i+5)/10).concat([2, 3, 4, 5])
     },
     beforeDestroyd: function() {
         this.store()
