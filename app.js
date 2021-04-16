@@ -2,13 +2,8 @@ var app = new Vue({
     el: '#app',
     data: {
         selection: null,
-        menu: [
-            { name: 'お好み焼き', P: 140.0, F: 160.5, C: 200.1 },
-            { name: 'グラノーラ', P: 241.1, F: 510.1, C: 41.0 }
-        ],
-        record: [
-            { name: 'お好み焼き', P: 140.0, F: 160.5, C: 200.1, r: 1.0 }
-        ],
+        menu: [],
+        record: [],
         r: 1.0,
         ratio: [...Array(11).keys()].map(i => (i+5)/10),
         
@@ -18,7 +13,7 @@ var app = new Vue({
         C: 0,
 
         goal: {
-            P: 1000, F: 1000, C: 1000
+            P: 0, F: 0, C: 0
         },
         menuSetting: {name: null, P: 0, F: 0, C: 0}
     },
@@ -51,6 +46,7 @@ var app = new Vue({
     methods: {
         addRecord: function() {
             if (!this.selection) return
+            this.name = this.selection
             this.record.push({
                 name: this.name,
                 P: this.P * this.r,
@@ -61,7 +57,7 @@ var app = new Vue({
             this.store()
         },
         removeRecord: function(index) {
-            this.$delete(this.record, index)
+            this.$delete(this.record, this.record-1-index)
             this.store()
         },
         clearRecord: function() {
@@ -69,17 +65,25 @@ var app = new Vue({
             this.store()
         },
         addMenu: function() {
-            if (!this.menuSetting) return
-            this.menu.push(this.menuSetting)
+            if (!this.menuSetting.name) return
+            this.menu.push({ ...this.menuSetting })
+            // this.menuSetting = {name: null, P: 0, F: 0, C: 0}
             this.store()
         },
         removeMenu: function(index) {
-            this.$delete(this.menu, index)
+            this.$delete(this.menu, this.menu.length-1-index)
+            this.store()
+        },
+        clearMenu: function() {
+            this.menu = []
             this.store()
         },
         resetSelection: function() {
             this.selection = null
             this.name = null
+        },
+        resetMenuSettingName: function() {
+            this.menuSetting.name = null
         },
         setPFC: function() {
             if (!this.selection) return
