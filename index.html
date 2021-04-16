@@ -109,11 +109,11 @@
 
         <h5 class="mt-3">残り</h5>
         <div class="input-group">
-            <span class="input-group-text">P</span>
+            <span class="input-group-text" :class="{'bg-danger': Math.round(10*rest.P)>0, 'bg-success': Math.round(10*rest.P)<=0}">P</span>
             <input type="text" class="form-control" :value="rest.P.toFixed(1)">
-            <span class="input-group-text">F</span>
+            <span class="input-group-text" :class="{'bg-danger': Math.round(10*rest.F)>0, 'bg-success': Math.round(10*rest.F)<=0}">F</span>
             <input type="text" class="form-control" :value="rest.F.toFixed(1)">
-            <span class="input-group-text">C</span>
+            <span class="input-group-text" :class="{'bg-danger': Math.round(10*rest.C)>0, 'bg-success': Math.round(10*rest.C)<=0}">C</span>
             <input type="text" class="form-control" :value="rest.C.toFixed(1)">
         </div>
 
