@@ -57,7 +57,7 @@ var app = new Vue({
             this.store()
         },
         removeRecord: function(index) {
-            this.$delete(this.record, this.record-1-index)
+            this.$delete(this.record, this.record.length-1-index)
             this.store()
         },
         clearRecord: function() {
