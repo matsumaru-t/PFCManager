@@ -54,6 +54,10 @@ var app = new Vue({
                 C: this.C * this.r,
                 r: this.r
             })
+            this.selection = null
+            this.P = 0
+            this.F = 0
+            this.C = 0
             this.store()
         },
         removeRecord: function(index) {
@@ -67,7 +71,7 @@ var app = new Vue({
         addMenu: function() {
             if (!this.menuSetting.name) return
             this.menu.push({ ...this.menuSetting })
-            // this.menuSetting = {name: null, P: 0, F: 0, C: 0}
+            this.menuSetting = {name: null, P: 0, F: 0, C: 0}
             this.store()
         },
         removeMenu: function(index) {
