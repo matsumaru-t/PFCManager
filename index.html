@@ -66,11 +66,11 @@
                                                                 @click="resetMenuSettingName">clear</button>
                                                         </div>
                                                     </td>
-                                                    <td><input type="text" v-model="menuSetting.P" class="form-control">
+                                                    <td><input type="text" v-model.number="menuSetting.P" class="form-control">
                                                     </td>
-                                                    <td><input type="text" v-model="menuSetting.F" class="form-control">
+                                                    <td><input type="text" v-model.number="menuSetting.F" class="form-control">
                                                     </td>
-                                                    <td><input type="text" v-model="menuSetting.C" class="form-control">
+                                                    <td><input type="text" v-model.number="menuSetting.C" class="form-control">
                                                     </td>
                                                     <td class="align-middle text-center"><button @click="addMenu"
                                                             class="btn btn-outline-primary btn-sm">+</button></td>
@@ -100,11 +100,11 @@
         <h5 class="mt-3">目標</h5>
         <div class="input-group">
             <span class="input-group-text">P</span>
-            <input type="text" v-model="goal.P" class="form-control" placeholder="goal of P">
+            <input type="text" v-model.number="goal.P" class="form-control" placeholder="goal of P">
             <span class="input-group-text">F</span>
-            <input type="text" v-model="goal.F" class="form-control" placeholder="goal of P">
+            <input type="text" v-model.number="goal.F" class="form-control" placeholder="goal of P">
             <span class="input-group-text">C</span>
-            <input type="text" v-model="goal.C" class="form-control" placeholder="goal of P">
+            <input type="text" v-model.number="goal.C" class="form-control" placeholder="goal of P">
         </div>
 
         <h5 class="mt-3">残り</h5>
@@ -145,13 +145,13 @@
                         </datalist>
                     </td>
                     <td>
-                        <select v-model="r" @change="addRecord" class="form-control">
+                        <select v-model.number="r" @change="addRecord" class="form-control">
                             <option v-for="r in ratio" :value="r">×{{ r.toFixed(1) }}</option>
                         </select>
                     </td>
-                    <td><input type="text" v-model="P" class="form-control"></td>
-                    <td><input type="text" v-model="F" class="form-control"></td>
-                    <td><input type="text" v-model="C" class="form-control"></td>
+                    <td><input type="text" v-model.number="P" class="form-control"></td>
+                    <td><input type="text" v-model.number="F" class="form-control"></td>
+                    <td><input type="text" v-model.number="C" class="form-control"></td>
                     <td class="align-middle text-center"><button @click="addRecord"
                             class="btn btn-outline-primary btn-sm">+</button></td>
                 </tr>
