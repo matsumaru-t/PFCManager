@@ -111,7 +111,74 @@ var app = new Vue({
         },
         clear: function() {
             localStorage.removeItem('PFCData')
-        }
+        },
+        importMenu: function() {
+            let link = document.createElement('input')
+            let reader = new FileReader()
+            link.type = 'file'
+            link.accept = '.json'
+            link.click()
+
+            link.addEventListener('change', () => {
+                if (link.files.length === 0) return
+                let file = link.files[0]
+                reader.readAsText(file, 'UTF-8')
+                reader.onload = () => {
+                    try {
+                        let res = JSON.parse(reader.result)
+                        if (Array.isArray(res) && res.every(food => ("name" in food) && ("P" in food) && ("F" in food) && ("C" in food))) {
+                            this.menu = res
+                            this.store()
+                        } else {
+                            throw new Error("JSONの読み込みに失敗")
+                        }
+                    } catch (error) {
+                        alert("読み込みに失敗しました。")
+                    }
+                }
+            })
+        },
+        exportMenu: function() {
+            var blob = new Blob([JSON.stringify(this.menu, null, 2)], {"type": "application/json"})
+            let link = document.createElement('a')
+            link.href = window.URL.createObjectURL(blob)
+            link.download = 'menu.json'
+            link.click()
+        },
+        importRecord: function() {
+            let link = document.createElement('input')
+            let reader = new FileReader()
+            link.type = 'file'
+            link.accept = '.json'
+            link.click()
+
+            link.addEventListener('change', () => {
+                if (link.files.length === 0) return
+                let file = link.files[0]
+                reader.readAsText(file, 'UTF-8')
+                reader.onload = () => {
+                    try {
+                        let res = JSON.parse(reader.result)
+                        if (Array.isArray(res) && res.every(food => ("name" in food) && ("P" in food) && ("F" in food) && ("C" in food) && ("r" in food))) {
+                            this.record = res
+                            this.store()
+                        } else {
+                            throw new Error("JSONの読み込みに失敗")
+                        }
+                    } catch (error) {
+                        alert("読み込みに失敗しました。")
+                    }
+                }
+            })
+        },
+        exportRecord: function() {
+            var blob = new Blob([JSON.stringify(this.record, null, 2)], {"type": "application/json"})
+            let link = document.createElement('a')
+            link.href = window.URL.createObjectURL(blob)
+            link.download = 'record.json'
+            link.click()
+        },
+
     },
     created: function() {
         this.load()
