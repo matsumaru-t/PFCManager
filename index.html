@@ -161,14 +161,25 @@
                             class="btn btn-outline-primary btn-sm">+</button></td>
                 </tr>
             </thead>
-            <tr v-for="(food, index) in reversedRecord" draggable @dragstart="dragRecord($event, index)" @drop="dropRecord($event, index)" @dragover.prevent @dragenter.prevent>
-                <td class="align-middle">{{ food.name }}</td>
-                <td class="align-middle">×{{ food.r.toFixed(1) }}</td>
-                <td class="align-middle">{{ food.P.toFixed(1) }}</td>
-                <td class="align-middle">{{ food.F.toFixed(1) }}</td>
-                <td class="align-middle">{{ food.C.toFixed(1) }}</td>
-                <td class="align-middle text-center"><button @click="removeRecord(index)"
-                        class="btn btn-outline-danger btn-sm">×</button></td>
+            <tr v-for="(food, index) in reversedRecord" draggable @dragstart="dragRecord($event, index)"
+                @drop="dropRecord($event, index)" @dragover.prevent @dragenter.prevent :class="{'bg-secondary': notFood(food), 'text-white': notFood(food)}">
+                <template v-if="notFood(food)">
+                    <td class="align-middle">{{ food.name }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </template>
+                <template v-else>
+                    <td class="align-middle">{{ food.name }}</td>
+                    <td class="align-middle">×{{ food.r.toFixed(1) }}</td>
+                    <td class="align-middle">{{ food.P.toFixed(1) }}</td>
+                    <td class="align-middle">{{ food.F.toFixed(1) }}</td>
+                    <td class="align-middle">{{ food.C.toFixed(1) }}</td>
+                    <td class="align-middle text-center"><button @click="removeRecord(index)"
+                            class="btn btn-outline-danger btn-sm">×</button></td>
+                </template>
             </tr>
         </table>
     </div>

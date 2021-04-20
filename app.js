@@ -13,7 +13,13 @@ var app = new Vue({
         goal: {
             P: 0, F: 0, C: 0
         },
-        menuSetting: {name: null, P: 0, F: 0, C: 0}
+        menuSetting: {name: null, P: 0, F: 0, C: 0},
+        default: [
+            {name: "間食", r: -1, P: 0, F: 0, C: 0},
+            {name: "夜ごはん", r: -1, P: 0, F: 0, C: 0},
+            {name: "昼ごはん", r: -1, P: 0, F: 0, C: 0},
+            {name: "朝ごはん", r: -1, P: 0, F: 0, C: 0},
+        ]
     },
     computed: {
         ratio: function() {
@@ -67,7 +73,7 @@ var app = new Vue({
             this.store()
         },
         clearRecord: function() {
-            this.record = []
+            this.record = this.default
             this.store()
         },
         addMenu: function() {
@@ -187,7 +193,11 @@ var app = new Vue({
             const dragIndex = event.dataTransfer.getData('drag-index')
             const deleteRecord = this.record.splice(this.record.length-1-dragIndex, 1)
             this.record.splice(this.record.length-dropIndex, 0, deleteRecord[0])
-        }
+            this.store()
+        },
+        notFood: function(food) {
+            return food.r === -1
+        },
     },
     created: function() {
         this.load()
