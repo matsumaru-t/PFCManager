@@ -43,6 +43,9 @@ var app = new Vue({
                 C: this.goal.C-sum.C
             }
         },
+        kcal: function() {
+            return 4*this.sum.P + 9*this.sum.F + 4*this.sum.C
+        },
         reversedMenu: function() {
             return this.menu.slice().reverse()
         },

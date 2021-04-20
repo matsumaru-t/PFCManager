@@ -5,9 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PFC Manager</title>
     <style type="text/css">
-        @keyframes cloak-in { 0% { opacity: 0; } }
-        #app { animation: cloak-in ease .8s; }
-        [v-cloak] { opacity: 0; }
+        @keyframes cloak-in {
+            0% {
+                opacity: 0;
+            }
+        }
+
+        #app {
+            animation: cloak-in ease .8s;
+        }
+
+        [v-cloak] {
+            opacity: 0;
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datalist-polyfill/1.24.4/datalist-polyfill.min.js"
         integrity="sha512-njgkJe8kuqyz2AauUKsvQ3fhqbLsshNovMTWXLmy7x+lfrHdF8TxDlLQofXG9EBYirKYWmNJlGs0qA7340U6ug=="
@@ -40,8 +50,10 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="menuModalLabel">メニュー設定</h5>
-                                        <button class="btn btn-outline-primary btn-sm mx-3" @click="importMenu">Import</button>
-                                        <button class="btn btn-outline-primary btn-sm" @click="exportMenu">Export</button>
+                                        <button class="btn btn-outline-primary btn-sm mx-3"
+                                            @click="importMenu">Import</button>
+                                        <button class="btn btn-outline-primary btn-sm"
+                                            @click="exportMenu">Export</button>
                                         <button type="button" class="btn-close" data-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
@@ -68,11 +80,14 @@
                                                                 @click="resetMenuSettingName">clear</button>
                                                         </div>
                                                     </td>
-                                                    <td><input type="text" v-model.number="menuSetting.P" class="form-control">
+                                                    <td><input type="text" v-model.number="menuSetting.P"
+                                                            class="form-control">
                                                     </td>
-                                                    <td><input type="text" v-model.number="menuSetting.F" class="form-control">
+                                                    <td><input type="text" v-model.number="menuSetting.F"
+                                                            class="form-control">
                                                     </td>
-                                                    <td><input type="text" v-model.number="menuSetting.C" class="form-control">
+                                                    <td><input type="text" v-model.number="menuSetting.C"
+                                                            class="form-control">
                                                     </td>
                                                     <td class="align-middle text-center"><button @click="addMenu"
                                                             class="btn btn-outline-primary btn-sm">+</button></td>
@@ -110,11 +125,14 @@
 
         <h5 class="mt-3">残り</h5>
         <div class="input-group">
-            <span class="input-group-text" :class="{'bg-danger': Math.round(10*rest.P)>0, 'bg-success': Math.round(10*rest.P)<=0}">P</span>
+            <span class="input-group-text"
+                :class="{'bg-danger': Math.round(10*rest.P)>0, 'bg-success': Math.round(10*rest.P)<=0}">P</span>
             <input type="text" class="form-control" :value="rest.P.toFixed(1)">
-            <span class="input-group-text" :class="{'bg-danger': Math.round(10*rest.F)>0, 'bg-success': Math.round(10*rest.F)<=0}">F</span>
+            <span class="input-group-text"
+                :class="{'bg-danger': Math.round(10*rest.F)>0, 'bg-success': Math.round(10*rest.F)<=0}">F</span>
             <input type="text" class="form-control" :value="rest.F.toFixed(1)">
-            <span class="input-group-text" :class="{'bg-danger': Math.round(10*rest.C)>0, 'bg-success': Math.round(10*rest.C)<=0}">C</span>
+            <span class="input-group-text"
+                :class="{'bg-danger': Math.round(10*rest.C)>0, 'bg-success': Math.round(10*rest.C)<=0}">C</span>
             <input type="text" class="form-control" :value="rest.C.toFixed(1)">
         </div>
 
@@ -123,7 +141,8 @@
             <button class="btn btn-outline-primary btn-sm mx-3" @click="importRecord">Import</button>
             <button class="btn btn-outline-primary btn-sm" @click="exportRecord">Export</button>
         </h5>
-        <table class="table table-striped border-top border-bottom">
+        <table class="table table-striped border-top border-bottom position-relative">
+            <caption class="text-right position-absolute top-0 end-0" style="caption-side: top; transform: translateY(-100%);">合計: {{ kcal.toFixed(1) }} kcal</caption>
             <thead class="table-light">
                 <tr>
                     <th class="col-4 align-middle text-center">名前</th>
@@ -135,8 +154,6 @@
                     <th class="col-1 align-middle text-center"><button class="btn btn-outline-secondary btn-sm"
                             @click="clearRecord">clear all</button></th>
                 </tr>
-            </thead>
-            <thead>
                 <tr class="form-group">
                     <td>
                         <div class="input-group">
@@ -170,28 +187,31 @@
                             class="btn btn-outline-primary btn-sm">+</button></td>
                 </tr>
             </thead>
-            <tr v-for="(food, index) in reversedRecord" draggable @dragstart="dragRecord($event, index)"
-                @drop="dropRecord($event, index)" @dragover.prevent @dragenter.prevent :class="{'bg-secondary': notFood(food), 'text-white': notFood(food)}">
-                <template v-if="notFood(food)">
-                    <td class="align-middle">{{ food.name }}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </template>
-                <template v-else>
-                    <td class="align-middle">{{ food.name }}</td>
-                    <td></td>
-                    <td class="align-middle">×{{ food.r.toFixed(1) }}</td>
-                    <td class="align-middle">{{ food.P.toFixed(1) }}</td>
-                    <td class="align-middle">{{ food.F.toFixed(1) }}</td>
-                    <td class="align-middle">{{ food.C.toFixed(1) }}</td>
-                    <td class="align-middle text-center"><button @click="removeRecord(index)"
-                            class="btn btn-outline-danger btn-sm">×</button></td>
-                </template>
-            </tr>
+            <tbody>
+                <tr v-for="(food, index) in reversedRecord" draggable @dragstart="dragRecord($event, index)"
+                    @drop="dropRecord($event, index)" @dragover.prevent @dragenter.prevent
+                    :class="{'bg-secondary': notFood(food), 'text-white': notFood(food)}">
+                    <template v-if="notFood(food)">
+                        <td class="align-middle">{{ food.name }}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </template>
+                    <template v-else>
+                        <td class="align-middle">{{ food.name }}</td>
+                        <td></td>
+                        <td class="align-middle">×{{ food.r.toFixed(1) }}</td>
+                        <td class="align-middle">{{ food.P.toFixed(1) }}</td>
+                        <td class="align-middle">{{ food.F.toFixed(1) }}</td>
+                        <td class="align-middle">{{ food.C.toFixed(1) }}</td>
+                        <td class="align-middle text-center"><button @click="removeRecord(index)"
+                                class="btn btn-outline-danger btn-sm">×</button></td>
+                    </template>
+                </tr>
+            </tbody>
         </table>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
