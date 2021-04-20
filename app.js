@@ -60,7 +60,6 @@ var app = new Vue({
             this.F = 0
             this.C = 0
             this.r = 1
-            this.mealTime = -4
             this.store()
         },
         addRecord: function() {
