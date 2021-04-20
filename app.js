@@ -1,3 +1,10 @@
+const defaultRecord = [
+    {name: "間食", r: -1, P: 0, F: 0, C: 0},
+    {name: "夜ごはん", r: -2, P: 0, F: 0, C: 0},
+    {name: "昼ごはん", r: -3, P: 0, F: 0, C: 0},
+    {name: "朝ごはん", r: -4, P: 0, F: 0, C: 0},
+]
+
 var app = new Vue({
     el: '#app',
     data: {
@@ -14,12 +21,8 @@ var app = new Vue({
             P: 0, F: 0, C: 0
         },
         menuSetting: {name: null, P: 0, F: 0, C: 0},
-        default: [
-            {name: "間食", r: -1, P: 0, F: 0, C: 0},
-            {name: "夜ごはん", r: -1, P: 0, F: 0, C: 0},
-            {name: "昼ごはん", r: -1, P: 0, F: 0, C: 0},
-            {name: "朝ごはん", r: -1, P: 0, F: 0, C: 0},
-        ]
+        default: defaultRecord,
+        mealTime: -4,
     },
     computed: {
         ratio: function() {
@@ -51,29 +54,35 @@ var app = new Vue({
         }
     },
     methods: {
+        initRecordForm: function() {
+            this.selection = null
+            this.P = 0
+            this.F = 0
+            this.C = 0
+            this.r = 1
+            this.mealTime = -4
+            this.store()
+        },
         addRecord: function() {
             if (!this.selection) return
             this.name = this.selection
-            this.record.push({
+            let i = this.record.findIndex(f => f.r === this.mealTime)
+            console.log(i)
+            this.record.splice(i, 0, {
                 name: this.name,
                 P: this.P * this.r,
                 F: this.F * this.r,
                 C: this.C * this.r,
                 r: this.r
             })
-            this.selection = null
-            this.P = 0
-            this.F = 0
-            this.C = 0
-            this.r = 1
-            this.store()
+            this.initRecordForm()
         },
         removeRecord: function(index) {
             this.$delete(this.record, this.record.length-1-index)
             this.store()
         },
         clearRecord: function() {
-            this.record = this.default
+            this.record = Object.assign([], defaultRecord)
             this.store()
         },
         addMenu: function() {
@@ -100,6 +109,7 @@ var app = new Vue({
         setPFC: function() {
             if (!this.selection) return
             let food = this.menu.find(f => f.name === this.selection)
+            if(!food) return
             this.name = food.name
             this.P = food.P
             this.F = food.F
@@ -196,11 +206,12 @@ var app = new Vue({
             this.store()
         },
         notFood: function(food) {
-            return food.r === -1
+            return food.r < 0
         },
     },
     created: function() {
         this.load()
+        this.default = defaultRecord
     },
     beforeDestroyd: function() {
         this.store()

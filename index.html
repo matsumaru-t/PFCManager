@@ -127,6 +127,7 @@
             <thead class="table-light">
                 <tr>
                     <th class="col-4 align-middle text-center">名前</th>
+                    <th class="col-1 align-middle text-center">時間帯</th>
                     <th class="col-1 align-middle text-center">倍率</th>
                     <th class="col-1 align-middle text-center">P</th>
                     <th class="col-1 align-middle text-center">F</th>
@@ -150,6 +151,14 @@
                         </datalist>
                     </td>
                     <td>
+                        <select v-model.number="mealTime" class="form-control">
+                            <option value=-4>朝ごはん</option>
+                            <option value=-3>昼ごはん</option>
+                            <option value=-2>夜ごはん</option>
+                            <option value=-1>間食</option>
+                        </select>
+                    </td>
+                    <td>
                         <select v-model.number="r" @change="addRecord" class="form-control">
                             <option v-for="r in ratio" :value="r">×{{ r.toFixed(1) }}</option>
                         </select>
@@ -170,9 +179,11 @@
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
                 </template>
                 <template v-else>
                     <td class="align-middle">{{ food.name }}</td>
+                    <td></td>
                     <td class="align-middle">×{{ food.r.toFixed(1) }}</td>
                     <td class="align-middle">{{ food.P.toFixed(1) }}</td>
                     <td class="align-middle">{{ food.F.toFixed(1) }}</td>
