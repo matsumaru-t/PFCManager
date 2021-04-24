@@ -10,7 +10,7 @@ var app = new Vue({
     data: {
         selection: null,
         menu: [],
-        record: [],
+        record: defaultRecord,
         r: 1.0,
         name: null,
         P: 0,
@@ -23,6 +23,13 @@ var app = new Vue({
         menuSetting: {name: null, P: 0, F: 0, C: 0},
         default: defaultRecord,
         mealTime: -4,
+
+        curTab: 'A',
+        tab: {
+            A: defaultRecord,
+            B: defaultRecord,
+            C: defaultRecord,
+        }
     },
     computed: {
         ratio: function() {
@@ -69,7 +76,6 @@ var app = new Vue({
             if (!this.selection) return
             this.name = this.selection
             let i = this.record.findIndex(f => f.r === this.mealTime)
-            console.log(i)
             this.record.splice(i, 0, {
                 name: this.name,
                 P: this.P * this.r,
@@ -108,6 +114,11 @@ var app = new Vue({
         resetMenuSettingName: function() {
             this.menuSetting.name = null
         },
+        changeTab: function(tabIndex) {
+            this.tab[this.curTab] = this.record.concat()
+            this.curTab = tabIndex
+            this.record = this.tab[tabIndex].concat()
+        },
         setPFC: function() {
             if (!this.selection) return
             let food = this.menu.find(f => f.name === this.selection)
@@ -119,6 +130,7 @@ var app = new Vue({
         },
         store: function() {
             localStorage.setItem('PFCData', JSON.stringify(this.$data))
+            this.tab[this.curTab] = this.record.concat()
             return
         },
         load: function() {
@@ -129,6 +141,7 @@ var app = new Vue({
         },
         clear: function() {
             localStorage.removeItem('PFCData')
+            alert("設定を全消去しました。")
         },
         importMenu: function() {
             let link = document.createElement('input')

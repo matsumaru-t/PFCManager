@@ -110,6 +110,26 @@
                             </div>
                         </div>
                     </li>
+                    <li class="nav-item">
+                        <a class="btn" data-toggle="modal" data-target="#clearModal">設定の全消去</a>
+                        <div class="modal fade" id="clearModal" tabindex="-1" role="dialog"
+                        aria-labelledby="clearModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="clearModalLabel">設定の全消去</h5>
+                                </div>
+                                <div class="modal-body">
+                                    この操作は取り消せません。設定を全消去しますか？
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" @click="clear" data-dismiss="modal">はい</button>
+                                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -141,6 +161,11 @@
             <button class="btn btn-outline-primary btn-sm mx-3" @click="importRecord">Import</button>
             <button class="btn btn-outline-primary btn-sm" @click="exportRecord">Export</button>
         </h5>
+        <ul class="nav nav-tabs">
+            <li class="nav-item" v-for="[tabIndex, _] in Object.entries(tab)">
+                <a href="#" class="nav-link" :class="{active: tabIndex === curTab}" @click="changeTab(tabIndex)">記録{{ tabIndex }}</a>
+            </li>
+        </ul>
         <table class="table table-striped border-top border-bottom position-relative">
             <caption class="text-right position-absolute top-0 end-0" style="caption-side: top; transform: translateY(-100%);">合計: {{ kcal.toFixed(1) }} kcal</caption>
             <thead class="table-light">
