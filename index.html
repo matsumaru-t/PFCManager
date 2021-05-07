@@ -228,7 +228,7 @@
                     <template v-else>
                         <td class="align-middle">{{ food.name }}</td>
                         <td></td>
-                        <td class="align-middle">×{{ food.r.toFixed(1) }}</td>
+                        <td class="align-middle" :class="{'text-danger': food.r !== 1.0}">×{{ food.r.toFixed(1) }}</td>
                         <td class="align-middle">{{ food.P.toFixed(1) }}</td>
                         <td class="align-middle">{{ food.F.toFixed(1) }}</td>
                         <td class="align-middle">{{ food.C.toFixed(1) }}</td>
