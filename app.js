@@ -212,13 +212,23 @@ var app = new Vue({
         dragRecord(event, dragIndex){
             event.dataTransfer.effectAllowed = 'move'
             event.dataTransfer.dropEffect = 'move'
-            event.dataTransfer.setData('drag-index', dragIndex)
+            event.dataTransfer.setData('dragRecord-index', dragIndex)
         },
         dropRecord(event, dropIndex){
-            const dragIndex = event.dataTransfer.getData('drag-index')
+            const dragIndex = event.dataTransfer.getData('dragRecord-index')
             const deleteRecord = this.record.splice(this.record.length-1-dragIndex, 1)
             this.record.splice(this.record.length-dropIndex, 0, deleteRecord[0])
             this.store()
+        },
+        dragMenu(event, dragIndex) {
+            event.dataTransfer.effectAllowed = 'move'
+            event.dataTransfer.dropEffect = 'move'
+            event.dataTransfer.setData('dragMenu-index', dragIndex)
+        },
+        dropMenu(event, dropIndex) {
+            const dragIndex = event.dataTransfer.getData('dragMenu-index')
+            const deleteMenu = this.menu.splice(this.menu.length-1-dragIndex, 1)
+            this.menu.splice(this.menu.length-dropIndex, 0, deleteMenu[0])
         },
         notFood: function(food) {
             return food.r < 0

@@ -93,7 +93,8 @@
                                                             class="btn btn-outline-primary btn-sm">+</button></td>
                                                 </tr>
                                             </thead>
-                                            <tr v-for="(food, index) in reversedMenu">
+                                            <tr v-for="(food, index) in reversedMenu" draggable @dragstart="dragMenu($event, index)"
+                                                @drop="dropMenu($event, index)" @dragover.prevent @dragenter.prevent>
                                                 <td class="align-middle">{{ food.name }}</td>
                                                 <td class="align-middle">{{ food.P.toFixed(1) }}</td>
                                                 <td class="align-middle">{{ food.F.toFixed(1) }}</td>
