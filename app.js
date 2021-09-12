@@ -229,6 +229,7 @@ var app = new Vue({
             const dragIndex = event.dataTransfer.getData('dragMenu-index')
             const deleteMenu = this.menu.splice(this.menu.length-1-dragIndex, 1)
             this.menu.splice(this.menu.length-dropIndex, 0, deleteMenu[0])
+            this.store()
         },
         notFood: function(food) {
             return food.r < 0
